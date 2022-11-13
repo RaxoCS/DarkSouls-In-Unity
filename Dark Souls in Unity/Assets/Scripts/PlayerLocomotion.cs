@@ -21,8 +21,11 @@ namespace SG
         [Header("Stats")]
         [SerializeField]
         float movementSpeed = 5;
+        float sprintSpeed = 7;
         [SerializeField]
         float rotationSpeed = 10;
+
+        public bool isSprinting;
 
         void Start()
         {
@@ -39,6 +42,7 @@ namespace SG
         {
             float delta = Time.deltaTime;
 
+            isSprinting = inputHandler.b_Input;
             inputHandler.TickInput(delta);
             HandleMovement(delta);
             HandleRollingAndSprinting(delta);
@@ -72,18 +76,31 @@ namespace SG
 
         public void HandleMovement(float delta)
         {
+            if(inputHandler.rollFlag)
+                return;
+            
             moveDirection = cameraObject.forward * inputHandler.vertical;
             moveDirection += cameraObject.right * inputHandler.horizontal;
             moveDirection.Normalize();
             moveDirection.y = 0;
 
             float speed  = movementSpeed;
-            moveDirection *= speed;
+
+            if (inputHandler.sprintFlag)
+            {
+                speed = sprintSpeed;
+                isSprinting = true;
+                moveDirection *= speed;
+            } else
+            {
+                moveDirection *= speed;
+            }
+            
 
             Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
             rigidbody.velocity = projectedVelocity;
 
-            animatorHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0);
+            animatorHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, isSprinting);
 
             if (animatorHandler.canRotate)
             {
