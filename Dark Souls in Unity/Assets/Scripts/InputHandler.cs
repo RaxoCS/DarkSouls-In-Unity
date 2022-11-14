@@ -17,7 +17,7 @@ namespace SG
         public bool rollFlag;
         public bool sprintFlag;
         public float rollInputTimer;
-        public bool isInteracting;
+        public bool isInteracting = true;
 
         PlayerControls inputActions;
         CameraHandler cameraHandler;

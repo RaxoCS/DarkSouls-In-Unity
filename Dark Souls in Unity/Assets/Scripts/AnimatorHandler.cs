@@ -82,22 +82,22 @@ namespace SG
             anim.SetFloat(horizontal, h, 0.1f, Time.deltaTime);
         }
 
-        public void PlayerTargetAnimation(string targetAnim, bool isInteracting)
+        public void PlayTargetAnimation(string targetAnim, bool isInteracting)
         {
             anim.applyRootMotion = isInteracting;
             anim.SetBool("isInteracting", isInteracting);
-            anim.CrossFade(targetAnim, 0.000001f);
+            anim.CrossFade(targetAnim, 0.02f);
         }        
         public void CanRotate()
         {
-            bool CanRotate;
-            CanRotate = true;
+            
+            canRotate = true;
         }
 
         public void StopRotation()
         {
-            bool CanRotate;
-            CanRotate = false;
+            
+            canRotate = false;
         }
 
         private void OnAnimatorMove()

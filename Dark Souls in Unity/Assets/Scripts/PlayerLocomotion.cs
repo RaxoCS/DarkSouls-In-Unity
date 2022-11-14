@@ -120,13 +120,13 @@ namespace SG
 
                 if (inputHandler.moveAmount > 0)
                 {
-                    animatorHandler.PlayerTargetAnimation("Rolling", true);
+                    animatorHandler.PlayTargetAnimation("Rolling", true);
                     moveDirection.y = 0;
                     Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
                     myTransform.rotation = rollRotation;
                 } else
                 {
-                    animatorHandler.PlayerTargetAnimation("Backstep", true);
+                    animatorHandler.PlayTargetAnimation("Backstep", true);
                 }
             }
         }
